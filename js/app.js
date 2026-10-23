@@ -8,19 +8,34 @@ document.addEventListener('DOMContentLoaded', () =>{
 
     weatherForm.addEventListener('submit', async (event) => {
         event.preventDefault();
+
         const cityName = cityInput.value.trim();
         if(!cityName) return;
         
+        const weatherCard =document.getElementById('weather-card');
+
         try{
-            console.log(`Searching coordinates for ${cityName}`);
+            weatherCard.classList.remove('hidden');
+            weatherCard.innerHTML= `
+                <div class="loading-state" style="text-align: center; padding: 20px;">
+                    <p>Searching for <strong>${cityName}</strong>...</p>
+                </div>
+            `;
+
+            // console.log(`Searching coordinates for ${cityName}`);
 
             const coords = await getCoordinates(cityName);
-            console.log('Coordinates found: ', coords);
+            // console.log('Coordinates found: ', coords);
             map.setView([coords.lat, coords.lon], 10);
 
-            console.log('Fetching weather data');
+            weatherCard.innerHTML = `
+            <div class="loading-state" style="text-align: center; padding: 20px;">
+                <p>Fetching weather data...</p>
+            </div>
+        `;
+            // console.log('Fetching weather data');
             const weatherData = await getWeather(coords.lat, coords.lon);
-            console.log('Weather data received: ', weatherData);
+            // console.log('Weather data received: ', weatherData);
 
             const temp = Math.round(weatherData.main.temp);
             const description = weatherData.weather[0].description;
@@ -29,8 +44,7 @@ document.addEventListener('DOMContentLoaded', () =>{
             const iconCode = weatherData.weather[0].icon;
             const iconUrl = `https://openweathermap.org/img/wn/${iconCode}@2x.png`;
 
-            const weatherCard =document.getElementById('weather-card');
-            weatherCard.classList.remove('hidden');
+            
             weatherCard.innerHTML = `
                 <h3>${weatherData.name}<h3>
                 <img src="${iconUrl}" alt="${description}">
@@ -46,7 +60,13 @@ document.addEventListener('DOMContentLoaded', () =>{
             
         } catch(error){
             console.error('Error:', error.message);
-            alert(error.message);
+
+            weatherCard.classList.remove('hidden');
+            weatherCard.innerHTML = `
+            <div class="error-banner" style="color: #d9534f; background-color: #f9d6d5; padding: 15px; border-radius: 5px; text-align: center;">
+                <p><strong>Error:</strong> ${error.message}</p>
+            </div>
+        `;
         }
     });
 });
