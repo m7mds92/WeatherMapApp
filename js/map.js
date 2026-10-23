@@ -10,3 +10,12 @@ function initMap() {
 
     console.log('Map initialization successfully');
 }
+
+let currentMarker = null;
+
+function updateMapMarker(lat, lon, popupText){
+    if(currentMarker){
+        map.removeLayer(currentMarker);
+    }
+    currentMarker = L.marker([lat,lon]).addTo(map).bindPopup(popupText).openPopup();
+}
