@@ -1,13 +1,17 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
 *{
     box-sizing: border-box;
     margin: 0;
     padding: 0;
+    font-family: 'Roboto', sans-serif;
 }
 
 body{
-    font-family: 'Roboto', sans-serif;
-    background-color: rgb(47, 77, 17);
+    background-color: rgb(99, 114, 184);
     color: azure;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
     padding: 20px;
 }
 
@@ -17,9 +21,9 @@ body{
 }
 
 .header h1{
-    font-size: 2.2rem;
-    color: black;
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    font-size: 1.8rem;
+    color: rgb(176, 240, 176);
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.945);
 }
 
 .app-main{
@@ -111,4 +115,20 @@ body{
     text-align: center;
     margin-bottom: 15px;
     border: 1px solid #ff8888;
+}
+
+#share-btn {
+    background-color: #2ecc71;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 500;
+    margin-top: 10px;
+    transition: background-color 0.2s;
+}
+
+#share-btn:hover {
+    background-color: #175531;
 }
